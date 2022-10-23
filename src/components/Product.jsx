@@ -2,7 +2,7 @@
 // import "./index.css";
 function Product(props) {
   return (
-    <div className="product-card p-1 min-h-full">
+    <div className="product-card p-1 min-h-full shadow-md shadow-zinc-400 hover:shadow-lg hover:shadow-zinc-800 bg-slate-400">
       <a href={props.data.Link} target="_blank" rel="noreferrer">
         <div
           className="product-image-container 
