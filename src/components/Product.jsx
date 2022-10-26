@@ -8,14 +8,11 @@ function Product(props) {
           className="product-image-container 
         flex flex-wrap justify-center mt-2"
         >
-          <div
-            className="flex flex-wrap 
-          justify-center"
-          >
+          <div className="flex justify-center">
             <img
               src={props.data.Image}
               alt={props.data.Name}
-              className="max-w-full h-auto"
+              className="w-auto h-auto max-h-62"
             />
           </div>
         </div>
@@ -27,6 +24,7 @@ function Product(props) {
             >
               {props.data.Name}
             </h4>
+            {props.data.Rating && <span>{props.data.Rating}</span>}
           </div>
           <div className="product-price text-3xl font-medium text-center">
             <h3>{props.data.Price}</h3>
