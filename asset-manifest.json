@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/PriceDeck/static/css/main.b8f401c0.css",
+    "main.js": "/PriceDeck/static/js/main.08152436.js",
+    "static/js/787.08987993.chunk.js": "/PriceDeck/static/js/787.08987993.chunk.js",
+    "static/media/logo.png": "/PriceDeck/static/media/logo.cd6a082b96dce36e4e3f.png",
+    "index.html": "/PriceDeck/index.html",
+    "main.b8f401c0.css.map": "/PriceDeck/static/css/main.b8f401c0.css.map",
+    "main.08152436.js.map": "/PriceDeck/static/js/main.08152436.js.map",
+    "787.08987993.chunk.js.map": "/PriceDeck/static/js/787.08987993.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8f401c0.css",
+    "static/js/main.08152436.js"
+  ]
+}
