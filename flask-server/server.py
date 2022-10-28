@@ -1,6 +1,7 @@
 from flask import Flask
 import re
 from flask_cors import CORS
+from operator import itemgetter
 
 from scraper import scrape
 from data import get_data_to_scrape
@@ -29,7 +30,7 @@ def scraper_main(product="tv"):
         data_list.append(data)
 
     data_list = [d for d in data_list if d['Price']
-                 is not None and d['Name'] is not None and d['Link'] is not None]
+                 is not None and d['Link'] is not None]
 
     data_list = sorted(data_list, key=lambda i: i['Price'])
 

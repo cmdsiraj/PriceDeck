@@ -3,7 +3,7 @@ import ScrollToTopButton from "./ScrollToTopButton";
 
 const Productsscreen = (props) => {
   return (
-    <div className="p-4">
+    <div className="p-4 bg-slate-200">
       <div>
         <h4 className="mb-2">
           Showing results for{" "}

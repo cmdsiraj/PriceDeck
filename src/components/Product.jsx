@@ -1,8 +1,12 @@
 // // import "./product.css";
 // import "./index.css";
+
+import Amazon from "../resources/amazon.png";
+import Flipkart from "../resources/flipkart.png";
+
 function Product(props) {
   return (
-    <div className="product-card p-1 min-h-full shadow-md shadow-zinc-400 hover:shadow-lg hover:shadow-zinc-800 bg-red-100 transition delay-150 duration-300 ease-in-out">
+    <div className="product-card p-1 min-h-full shadow-md  shadow-zinc-400 hover:shadow-lg hover:shadow-zinc-800 bg-amber-100 transition delay-150 duration-300 ease-in-out hover:bg-amber-200">
       <a href={props.data.Link} target="_blank" rel="noreferrer">
         <div
           className="product-image-container 
@@ -12,7 +16,7 @@ function Product(props) {
             <img
               src={props.data.Image}
               alt={props.data.Name}
-              className="w-auto h-auto max-h-62"
+              className="w-auto h-auto max-h-62 object-contain"
             />
           </div>
         </div>
@@ -24,7 +28,11 @@ function Product(props) {
             >
               {props.data.Name}
             </h4>
-            {props.data.Rating && <span>{props.data.Rating}</span>}
+            {props.data.Rating && (
+              <span className="font-extrabold text-3xl">
+               {props.data.Rating}
+              </span>
+            )}
           </div>
           <div className="product-price text-3xl font-medium text-center">
             <h3>{props.data.Price}</h3>
@@ -33,9 +41,19 @@ function Product(props) {
             <span className="font-extralight text-base text-stone-500">
               Product from
             </span>
-            <p className="italic font-medium font-serif">
-              {props.data.Website}
-            </p>
+            <div className="italic font-medium font-serif text-center">
+              {props.data.Website === "AMAZON" ? (
+                <img
+                  src={Amazon}
+                  className="w-12 h-12 ml-auto mr-auto rounded-full"
+                />
+              ) : (
+                <img
+                  src={Flipkart}
+                  className="w-12 h-12 ml-auto mr-auto rounded-full"
+                />
+              )}
+            </div>
           </div>
         </div>
       </a>
