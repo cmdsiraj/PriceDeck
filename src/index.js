@@ -3,15 +3,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import reducer, { initialState } from "./reducer";
-import { StateProvider } from "./StateProvider";
+// import reducer, { initialState } from "./reducer";
+// import { StateProvider } from "./StateProvider";
+import { LoginProvider } from "./Contexts/LoginContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
+    {/* <StateProvider initialState={initialState} reducer={reducer}> */}
+    <LoginProvider>
       <App />
-    </StateProvider>
+    </LoginProvider>
+    {/* </StateProvider> */}
   </React.StrictMode>
 );
 
