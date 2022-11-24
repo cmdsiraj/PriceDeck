@@ -1,10 +1,34 @@
-// // import "./product.css";
-// import "./index.css";
-
+import React from "react";
+import { useContext } from "react";
 import Amazon from "../resources/amazon.png";
 import Flipkart from "../resources/flipkart.png";
+import { LoginContext } from "../Contexts/LoginContext";
+import { getAuth } from "firebase/auth";
+import db from "../firebase";
+import firebase from "firebase/compat/app";
 
 function Product(props) {
+  const { loginStatus, account } = useContext(LoginContext);
+  const auth2 = getAuth();
+  const user = auth2.currentUser;
+
+  const add = () => {
+    console.log(account);
+    if (user) {
+      console.log(user.uid);
+      db.collection("users").doc(user.uid).collection("products").add({
+        Product_Name: props.data.Name,
+        Product_Image: props.data.Image,
+        Product_Link: props.data.Link,
+        Product_price: props.data.Price,
+        Product_website: props.data.Website,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } else {
+      // No user is signed in.
+    }
+  };
+
   return (
     <div className="product-card p-1 min-h-full shadow-md  shadow-zinc-400 hover:shadow-lg hover:shadow-zinc-800 bg-amber-100 transition delay-150 duration-300 ease-in-out hover:bg-amber-200">
       <a href={props.data.Link} target="_blank" rel="noreferrer">
@@ -26,11 +50,11 @@ function Product(props) {
               className="text-indigo-900 
             hover:text-rose-800 font-semibold"
             >
-              {props.data.Name}
+              {props.data.Name.substring(0, 60) + "...."}
             </h4>
             {props.data.Rating && (
               <span className="font-extrabold text-3xl">
-               {props.data.Rating}
+                {props.data.Rating}
               </span>
             )}
           </div>
@@ -57,6 +81,16 @@ function Product(props) {
           </div>
         </div>
       </a>
+      {loginStatus ? (
+        <button
+          onClick={() => add()}
+          className="w-full btn bg-blue-600 text-center text-white font-medium text-xs h-12 uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          ADD
+        </button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

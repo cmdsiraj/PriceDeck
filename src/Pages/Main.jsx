@@ -3,7 +3,8 @@ import { useState, useContext } from "react";
 import logo from "../resources/logo2.png";
 import Productsscreen from "../components/Productsscreen";
 import LoadingScreen from "../components/LoadingScreen";
-import { auth, provider } from "../firebase";
+import db, { auth, provider } from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Home from "./Home";
 import { LoginContext } from "../Contexts/LoginContext";
 import DropDownButton from "../components/DropDownButton";
@@ -25,6 +26,20 @@ function App() {
         setAccount(user.email);
         setImage(user.photoURL);
         setLoginStatus(true);
+        const auth2 = new getAuth();
+        onAuthStateChanged(auth2, (user) => {
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            console.log(uid);
+            db.collection("users").doc(uid).set({
+              email: user.email,
+            });
+          } else {
+            alert("Some Error has occured! please try again");
+          }
+        });
       })
       .catch((error) => alert(error.message));
   };

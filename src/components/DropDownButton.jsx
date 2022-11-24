@@ -3,6 +3,7 @@ import { LoginContext } from "../Contexts/LoginContext";
 import { Avatar } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Home from "../Pages/Home";
 
 const DropdownButton = ({ src }) => {
   const [open, setOpen] = useState(false);
@@ -15,7 +16,8 @@ const DropdownButton = ({ src }) => {
     localStorage.removeItem("account");
     localStorage.removeItem("image");
     setLoginStatus(false);
-    window.location.reload(false);
+    navigate("/");
+    // window.location.reload(false);
   }
 
   return (
@@ -45,6 +47,15 @@ const DropdownButton = ({ src }) => {
               aria-labelledby="dropdownDefault"
               className="py-1 text-sm text-black rounded"
             >
+              <li
+                className="py-2 px-4 hover:bg-gray-600 cursor-pointer hover:text-white"
+                role="menuitem"
+                tabIndex="-1"
+                id="menu-item-0"
+                onClick={() => navigate("/")}
+              >
+                Home
+              </li>
               <li
                 className="py-2 px-4 hover:bg-gray-600 cursor-pointer hover:text-white"
                 role="menuitem"

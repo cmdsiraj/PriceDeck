@@ -134,4 +134,6 @@ def get_user_agents():
         "Mozilla/5.0 (iPad; CPU OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) GSA/7.0.55539 Mobile/12H143 Safari/600.1.4"
     ]
 
-    return random.choice(user_agents)
+    header = random.choice(user_agents)
+    print(header)
+    return header
