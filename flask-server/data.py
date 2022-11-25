@@ -58,6 +58,25 @@ def get_data_to_scrape(website, product):
         return {'domain': domain, 'link': link, 'classes': classes, 'tags': tags, 'headers': HEADERS}
 
 
+def get_data_to_link_scrape(website):
+    user_agent = get_user_agents()
+    HEADERS = ({'User-Agent': user_agent})
+    amazon = {
+        'tag': 'span',
+        'class': 'a-offscreen'
+    }
+
+    flipkart = {
+        'tag': 'div',
+        'class': '_30jeq3'
+    }
+
+    if website.lower() == "amazon":
+        return amazon, HEADERS
+    if website.lower() == "flipkart":
+        return flipkart, HEADERS
+
+
 def get_user_agents():
     user_agents = [
         "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0",
@@ -135,5 +154,5 @@ def get_user_agents():
     ]
 
     header = random.choice(user_agents)
-    print(header)
+    # print(header)
     return header

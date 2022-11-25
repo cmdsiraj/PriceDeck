@@ -3,8 +3,12 @@ import re
 from flask_cors import CORS
 from operator import itemgetter
 
-from scraper import scrape
-from data import get_data_to_scrape
+from scraper import scrape, scrape_link
+from data import get_data_to_scrape, get_data_to_link_scrape
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 app = Flask(__name__)
 CORS(app)
@@ -35,6 +39,34 @@ def scraper_main(product="tv"):
     data_list = sorted(data_list, key=lambda i: i['Price'])
 
     return data_list
+
+
+@app.route("/scrape_link/<uid>")
+def scrape_data(uid):
+    if not firebase_admin._apps:
+        cred = credentials.Certificate("price-deck-10f0b298a802.json")
+        app = firebase_admin.initialize_app(cred)
+    firestore_client = firestore.client()
+
+    coll_ref = firestore_client.collection(
+        'users').document(uid).collection("products")
+
+    # Using coll_ref.stream() is more efficient than coll_ref.get()
+    docs = coll_ref.stream()
+    
+    for doc in docs:
+        doc_dict = doc.to_dict()
+        website = doc_dict['Product_website']
+        link = doc_dict['Product_Link']
+
+        data, header = get_data_to_link_scrape(website)
+        price = scrape_link(data, header, link)
+
+        ref = coll_ref.document(doc.id)
+
+        ref.update({u'Latest_Price': price})
+
+    return {"Message": "Success"}
 
 
 if __name__ == '__main__':
