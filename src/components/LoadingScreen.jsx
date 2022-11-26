@@ -2,7 +2,7 @@ import "../styles/LoadingScreen.css";
 
 const LoadingScreen = () => {
   return (
-    <div className="body bg-green-100">
+    <div className="body bg-green-100 h-full">
       <div className="animation-container">
         <div className="y-axis-container">
           <div className="container">

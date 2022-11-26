@@ -14,7 +14,7 @@ def scrape(data):
 
     page = requests.get(link, headers=headers)
 
-    soup = BeautifulSoup(page.content, 'lxml')
+    soup = BeautifulSoup(page.content, 'html.parser')
 
     try:
         main = soup.find(tags['main'], class_=classes['main'])
@@ -112,11 +112,11 @@ def scrape_link(data, header, link):
 
     price = None
 
-    soup = BeautifulSoup(page.content, 'lxml')
+    soup = BeautifulSoup(page.content, 'html.parser')
     try:
         price = soup.find(data['tag'], class_=data['class']).get_text()
     except:
         price = None
-        print("Error occured")
+        print("Can't get the Price")
 
     return price

@@ -6,6 +6,8 @@ import { LoginContext } from "../Contexts/LoginContext";
 import { getAuth } from "firebase/auth";
 import db from "../firebase";
 import firebase from "firebase/compat/app";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Product(props) {
   const { loginStatus, account } = useContext(LoginContext);
@@ -14,6 +16,8 @@ function Product(props) {
 
   const add = () => {
     console.log(account);
+    toast.success("Added successfully!");
+
     if (user) {
       console.log(user.uid);
       db.collection("users").doc(user.uid).collection("products").add({
@@ -91,6 +95,7 @@ function Product(props) {
       ) : (
         <></>
       )}
+      <ToastContainer />
     </div>
   );
 }

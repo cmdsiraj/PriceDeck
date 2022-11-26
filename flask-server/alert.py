@@ -31,36 +31,66 @@ def check():
             data, header = get_data_to_link_scrape(website)
             cur_price = scrape_link(data, header, link)
 
-            cur_price = 5
+            # cur_price = 5
 
             price = product.to_dict()['Product_price']
 
             price = re.sub('[^0-9]', '', price)
 
             if cur_price < int(price):
+                print(user.to_dict()['email'])
                 notification(user.to_dict()['email'], product.to_dict()['Product_Name'], product.to_dict()[
                              'Product_Link'], product.to_dict()['Product_website'])
     print("checked")
 
 
 def notification(receiver, product_name, link, website):
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
-    server.login('', 'database@2022')
+    
+    
+    sender_mail = 'database.siraj@gmail.com'    
+    receivers_mail = [receiver]
+    
+    subject = "Price Fell Down"   
+    body = "There is a price drop for {name}.\n\nPlease check {website}, click here {url}".format(
+    name=product_name, website=website, url=link)
+    msg = f"Subject:{subject}, \n\n{body}"    
+    try:    
+        smtpObj = smtplib.SMTP('gmail.com',587)   
+        smtpObj.sendmail(sender_mail, receivers_mail, msg)    
+        print("Successfully sent email")    
+    except Exception:    
+        print("Error: unable to send email") 
+   
+   
 
-    subject = "Price Fell Down"
-    body = "There is a price drop for {name}.\n\nPlease check {website}, click here {url}".formay(
-        name=product_name, website=website, url=link)
-    msg = f"Subject:{subject}, \n\n{body}"
 
-    server.sendmail('database.siraj@gmail.com', receiver, msg)
-    print('mail sent')
-
-
-schedule.every(4).seconds.do(check)
+schedule.every().day.at("00:00").do(check)
 print("started")
 while True:
     schedule.run_pending()
     time.sleep(1)  # wait one minute
+
+
+
+
+
+
+
+
+
+
+
+
+    # server = smtplib.SMTP("smtp.gmail.com", 587)
+    # server.ehlo()
+    # server.starttls()
+    # server.ehlo()
+    # server.login('database.siraj@gmail.com', 'database@2022')
+
+    # subject = "Price Fell Down"
+    # body = "There is a price drop for {name}.\n\nPlease check {website}, click here {url}".formay(
+    #     name=product_name, website=website, url=link)
+    # msg = f"Subject:{subject}, \n\n{body}"
+
+    # server.sendmail('database.siraj@gmail.com', receiver, msg)
+    # print('mail sent')

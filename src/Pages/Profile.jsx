@@ -6,6 +6,8 @@ import DropDownButton from "../components/DropDownButton";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
 import db from "../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const { image, loginStatus } = useContext(LoginContext);
@@ -18,31 +20,30 @@ function Profile() {
   // const [newPrice, setNewPrice] = useState([]);
 
   useEffect(() => {
-    if (loginStatus) {
-      const auth2 = new getAuth();
-      onAuthStateChanged(auth2, (user) => {
-        setUserid(user.uid);
-        db.collection("users")
-          .doc(user.uid)
-          .collection("products")
-          .onSnapshot((snapshot) => {
-            setProducts(snapshot.docs.map((doc) => doc));
+    console.log(ignore);
+    if (!ignore) {
+      const link = "/scrape_link/" + user.uid;
+      try {
+        fetch(link)
+          .then((res) => res.json())
+          .then((product_data) => {
+            // console.log(product_data);
           });
-      });
-
-      console.log(ignore);
-      if (!ignore) {
-        const link = "/scrape_link/" + user.uid;
-        try {
-          fetch(link)
-            .then((res) => res.json())
-            .then((product_data) => {
-              console.log(product_data);
+      } catch (e) {
+        alert(e);
+      }
+      setIgnore(true);
+      if (loginStatus) {
+        const auth2 = new getAuth();
+        onAuthStateChanged(auth2, (user) => {
+          setUserid(user.uid);
+          db.collection("users")
+            .doc(user.uid)
+            .collection("products")
+            .onSnapshot((snapshot) => {
+              setProducts(snapshot.docs.map((doc) => doc));
             });
-        } catch (e) {
-          alert(e);
-        }
-        setIgnore(true);
+        });
       }
     }
   }, [setProducts, user, loginStatus, setUserid, ignore, setIgnore]);
@@ -53,8 +54,17 @@ function Profile() {
     console.log(name);
 
     await deleteDoc(docRef);
-    alert("deleted");
+
+    toast.success("Deleted successfully!");
     setIgnore(false);
+  };
+
+  const toNum = (str) => {
+    console.log("str: " + str);
+    if (str !== null) {
+      const num = str.replace(/[^0-9.-]+/g, "");
+      return Number(num);
+    }
   };
 
   return (
@@ -96,16 +106,6 @@ function Profile() {
         <div className="p-4 grid grid-cols-2 gap-5">
           {products.map((product) => (
             <div className="border rounded-lg shadow-md" key={product.id}>
-              {parseInt(product.data().Product_price.replace("[^0-9]", "")) >
-              parseInt(product.data().Latest_Price.replace("[^0-9]", "")) ? (
-                <>
-                  <p className="border rounded-tl-lg rounded-tr-lg text-center p-2 bg-green-500 text-white text-lg">
-                    Price Drop
-                  </p>
-                </>
-              ) : (
-                <></>
-              )}
               <a
                 href={product.data().Product_Link}
                 className="flex flex-col items-center bg-white md:flex-row md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
@@ -152,6 +152,7 @@ function Profile() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
