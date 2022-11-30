@@ -17,7 +17,7 @@ A Price Comparison website
 
 ## Description about folders
 
-1. `flask-server` is our main folder. This is where the server where scrapping processing takes place. 
+1. `flask-server` is our main folder. This is the server where scrapping processing takes place. 
 2. `src` folder contain all the files of the user interface of the application.
 
 ## files in flask-server
