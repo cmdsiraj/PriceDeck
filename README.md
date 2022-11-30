@@ -5,8 +5,8 @@ A price comparision website
 2.  Clone repository by using this command `git clone https://github.com/cmdsiraj/PriceDeck.git`.
 3.  Go to folder PriceDeck. you can use this command to navigate to that direcotry `cd .\PriceDeck\`.
 4.  Installing dependencies: `npm install`.
-5.  jump from 'cd' to 'flask-server' with the help of command  `cd .\flask-server\`.
-6.  Creating Virtualenvironment with the help of command `virtualenv venv`.
+5.  Jump from 'cd' to 'flask-server' with the help of command  `cd .\flask-server\`.
+6.  Creating virtual environment with the help of command `virtualenv venv`.
 7.  Activate virtual environment using command `venv/Scripts/activate`.
 8.  Download required libraries using the following command `pip install -r requirements.txt`
 9.  Now, all the setup is ready. 
