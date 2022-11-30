@@ -9,7 +9,7 @@ A price comparision website
 6. Creating Virtualenvironment with the help of command `virtualenv venv`.
 7. Activate virtual environment using command `venv/Scripts/activate`.
 8. Download required libraries using the command `pip install -r requirements.txt`
-9. Now all the setup ready. 
+9. Now, all the setup is ready. 
 10. open a terminal in PriceDeck Folder and execute `npm start` to start react server. 
 11. open other termianal in flask-server folder and execute `python server.py` to start our python server. 
 12. Open browser and goto `http://localhost:3000/`.
