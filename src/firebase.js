@@ -5,7 +5,7 @@ import "firebase/compat/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCR9QnER7kb4T-CZE3vTVX4EyUnu7MkqYE",
-    authDomain: "price-deck.vercel.app",
+    authDomain: "price-deck-ifzxe8gpv-cmdsiraj.vercel.app",
     projectId: "price-deck",
     storageBucket: "price-deck.appspot.com",
     messagingSenderId: "668316657045",
